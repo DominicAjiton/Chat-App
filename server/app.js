@@ -5,7 +5,7 @@ const cors = require("cors");
 const { encrypt, decrypt } = require("./utils/crypto");
 const io = require("socket.io")(8080, {
   cors: {
-    origin: ["http://localhost:3000", "http://192.168.2.18:3000","https://chat-app-nu-navy.vercel.app/"]
+    origin: ["http://localhost:3000", "http://192.168.2.18:3000","https://chat-app-xx64.onrender.com"]
   },
 });
 
