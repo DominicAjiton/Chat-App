@@ -23,7 +23,7 @@ const Dashboard = () => {
   const url =process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    setSocket(io("http://192.168.2.18:8080"));
+    setSocket(io("https://chat-app-xx64.onrender.com"));
      
   }, []);
 
