@@ -20,9 +20,10 @@ const Dashboard = () => {
   const [socket, setSocket] = useState(null);
   const messageRef = useRef(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const url =process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    setSocket(io("http://localhost:8080"));
+    setSocket(io("http://192.168.2.18:8080"));
      
   }, []);
 
@@ -55,7 +56,7 @@ const Dashboard = () => {
     const loggedInUser = JSON.parse(localStorage.getItem("user:detail"));
     const fetchConversations = async () => {
       const res = await fetch(
-        `http://localhost:8000/api/conversations/${loggedInUser?.id}`,
+        `${url}/api/conversations/${loggedInUser?.id}`,
         {
           method: "GET",
           headers: {
@@ -71,7 +72,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch(`http://localhost:8000/api/users/${user?.id}`, {
+      const res = await fetch(`${url}/api/users/${user?.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +86,7 @@ const Dashboard = () => {
 
   const fetchMessages = async (conversationId, receiver) => {
     const res = await fetch(
-      `http://localhost:8000/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}`,
+      `${url}/api/message/${conversationId}?senderId=${user?.id}&&receiverId=${receiver?.receiverId}`,
       {
         method: "GET",
         headers: {
@@ -119,7 +120,7 @@ const Dashboard = () => {
 //   // Send via socket
 
 //   // Save to DB
-//   await fetch(`http://localhost:8000/api/message`, {
+//   await fetch(`${url}/api/message`, {
 //     method: 'POST',
 //     headers: { 'Content-Type': 'application/json' },
 //     body: JSON.stringify(newMsg)
@@ -145,7 +146,7 @@ const Dashboard = () => {
     socket?.emit("sendMessage", newMsg);
 
     // Save message to DB
-    const res = await fetch("http://localhost:8000/api/message", {
+    const res = await fetch(`${url}/api/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newMsg),
